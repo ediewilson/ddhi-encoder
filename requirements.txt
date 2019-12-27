@@ -1,17 +1,16 @@
-# =============================================================================
-# DEPRECATION WARNING:
-#
-# The file `requirements.txt` does not influence the package dependencies and
-# will not be automatically created in the next version of PyScaffold (v4.x).
-#
-# Please have look at the docs for better alternatives
-# (`Dependency Management` section).
-# =============================================================================
-#
-# Add your pinned requirements so that they can be easily installed with:
-# pip install -r requirements.txt
-# Remember to also add them in setup.cfg but unpinned.
-# Example:
-# numpy==1.13.3
-# scipy==1.0
-#
+attrs==19.3.0
+coverage==5.0.1
+# Editable Git install with no remote (ddhi-encoder==0.0.post0.dev2+gfbb5f62)
+-e /Users/cwulfman/ddhi-encoder/src
+docx2python==1.19
+lxml==4.4.2
+more-itertools==8.0.2
+packaging==19.2
+pluggy==0.13.1
+py==1.8.0
+pyparsing==2.4.5
+PyScaffold==3.2.3
+pytest==5.3.2
+pytest-cov==2.8.1
+six==1.13.0
+wcwidth==0.1.7
