@@ -18,11 +18,3 @@ def test_interview():
     interview = Interview(parser, "short.docx")
     assert interview.utterances[1].speaker == ('TAVELA')
     assert re.search('Washington', interview.utterances[1].speech)
-
-def test_utterance():
-    speaker = "John"
-    speech = "Now is the time"
-    utterance = Utterance(speaker, speech)
-    assert utterance.speaker == speaker
-    assert utterance.speech == speech
-    assert len(utterance) == len(speech)
