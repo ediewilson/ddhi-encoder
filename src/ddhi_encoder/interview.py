@@ -8,6 +8,13 @@ import spacy
 
 
 class Interview:
+    TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
+    TEI = "{%s}" % TEI_NAMESPACE
+    XML_NAMESPACE = "http://www.w3.org/XML/1998/namespace"
+    XML = "{%s}" % XML_NAMESPACE
+    NSMAP = {None: TEI_NAMESPACE,
+             'xml': XML_NAMESPACE}
+
     def __init__(self, parser, path_to_docx, path_to_template, model):
         parser.parse(path_to_docx)
         self.utterances = parser.utterances
@@ -23,6 +30,15 @@ class Interview:
             body.remove(e)
         for utt in self.utterances:
             body.append(utt.xml())
+
+        particDesc = self.tei_doc.xpath('//tei:particDesc', namespaces=self.namespaces)[0]
+        for e in list(particDesc):
+            particDesc.remove(e)
+        people = [utt.speaker for utt in self.utterances]
+        for p in set(people):
+            person = etree.Element(self.TEI + "person", nsmap=self.NSMAP)
+            person.set(self.XML + "id", p)
+            particDesc.append(person)
 
     def xml(self):
         return etree.tostring(self.tei_doc, pretty_print=True)
