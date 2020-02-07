@@ -3,7 +3,7 @@
 import pytest
 import re
 import os
-from ddhi_encoder.interview import Interview
+from ddhi_encoder.interview import Interview, InterviewFactory
 from ddhi_encoder.word_parser import WordParserFactory
 from ddhi_encoder.utterance import Utterance
 import spacy
@@ -24,3 +24,14 @@ def test_interview():
     assert interview.utterances[1].speaker == ('TAVELA')
     assert re.search('Washington', interview.utterances[1].speech)
     assert re.search('sourceDesc', interview.xml().decode('utf-8'))
+
+
+def test_interview_factory():
+    factory = InterviewFactory()
+    testdoc = os.path.join(os.path.dirname(__file__), 'short.docx')
+    interview = factory.interview_for("DDHI", testdoc)
+    assert interview.utterances[1].speaker == ('TAVELA')
+    assert re.search('Washington', interview.utterances[1].speech)
+    assert re.search('sourceDesc', interview.xml().decode('utf-8'))
+    interview.update_tei()
+    interview.to_file("/tmp/fluff.xml")

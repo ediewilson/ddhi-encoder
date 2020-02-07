@@ -24,6 +24,6 @@ def test_utterance():
     assert utterance._doc[0].text == "Jack"
     assert utterance._doc[0].pos_  == "PROPN"
     assert utterance._doc.ents[0].label_ == "PERSON"
-    xml = etree.fromstring(utterance.xml())
+    xml = utterance.xml()
     assert xml.tag == "{http://www.tei-c.org/ns/1.0}" + "u"
     assert xml.xpath("@who")[0] == "John"
