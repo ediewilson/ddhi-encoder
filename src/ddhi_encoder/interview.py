@@ -41,10 +41,10 @@ class Interview:
             particDesc.append(person)
 
     def xml(self):
-        return etree.tostring(self.tei_doc, pretty_print=True)
+        return etree.tostring(self.tei_doc, encoding='unicode', pretty_print=True)
 
     def to_file(self, filename):
-        self.tei_doc.write(filename, pretty_print=True)
+        self.tei_doc.write(filename, encoding='UTF-8', pretty_print=True)
 
 
 class InterviewFactory:
