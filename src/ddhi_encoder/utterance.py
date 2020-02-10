@@ -3,6 +3,8 @@
 
 import spacy
 from lxml import etree
+import re
+
 
 class Utterance:
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
@@ -31,13 +33,16 @@ class Utterance:
     @doc.setter
     def doc(self, spacy_doc):
         self._doc = spacy_doc
-        
 
     def process(self):
         self._doc = self.nlp(self.speech)
 
     def xml(self):
+        # clean xml special characters
+        self.speech = re.sub("&", "&amp;", self.speech)
+        self.speech = re.sub("<", "&lt;", self.speech)
+        self.speech = re.sub(">", "&gt;", self.speech)
         utt_elem = etree.Element(self.TEI + "u", who=self.speaker, nsmap=self.NSMAP)
         utt_elem.text = self.speech
         # return etree.tostring(utt_elem)
-        return utt_elem        
+        return utt_elem

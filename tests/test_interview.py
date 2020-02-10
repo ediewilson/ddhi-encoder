@@ -23,7 +23,7 @@ def test_interview():
     interview = Interview(parser, testdoc, template, nlp)
     assert interview.utterances[1].speaker == ('TAVELA')
     assert re.search('Washington', interview.utterances[1].speech)
-    assert re.search('sourceDesc', interview.xml().decode('utf-8'))
+    assert re.search('sourceDesc', interview.xml())
 
 
 def test_interview_factory():
@@ -32,6 +32,6 @@ def test_interview_factory():
     interview = factory.interview_for("DDHI", testdoc)
     assert interview.utterances[1].speaker == ('TAVELA')
     assert re.search('Washington', interview.utterances[1].speech)
-    assert re.search('sourceDesc', interview.xml().decode('utf-8'))
+    assert re.search('sourceDesc', interview.xml())
     interview.update_tei()
     interview.to_file("/tmp/fluff.xml")
