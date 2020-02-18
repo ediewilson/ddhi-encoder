@@ -26,8 +26,10 @@ class DDHIParser(WordParser):
     def parse(self, path_to_docx):
         self._extracted = docx2python(path_to_docx)
         self.utterances = list(
-            filter(None, [self.utterance(p) for p in self._extracted.body[0][0][0]])
+            filter(None, [self.utterance(p)
+                          for p in self._extracted.body[0][0][0]])
         )
+
 
 class WordParserFactory:
     def parser_for(self, project):

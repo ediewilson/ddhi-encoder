@@ -2,20 +2,6 @@
 """
 This is a console script for converting a directory
 of word docs to TEI xml.
-
-This is a skeleton file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-[options.entry_points] section in setup.cfg:
-
-    console_scripts =
-         fibonacci = ddhi_encoder.skeleton:run
-
-Then run `python setup.py install` which will install the command `fibonacci`
-inside your current environment.
-Besides console scripts, the header (i.e. until _logger...) of this file can
-also be used as template for Python modules.
-
-Note: This skeleton file can be safely removed if not needed!
 """
 
 import argparse
@@ -39,15 +25,17 @@ def convert_docs(in_path, out_path):
         for fname in files:
             if fname.endswith(".docx"):
                 in_path = os.path.join(root, fname)
-                out_path = os.path.join(out_path,
+                out_path = os.path.join(root,
                                         fname.replace(".docx", ".tei.xml"))
                 convert_doc(in_path, out_path)
+
 
 def convert_doc(in_path, out_path):
     factory = InterviewFactory()
     interview = factory.interview_for("DDHI", in_path)
     interview.update_tei()
     interview.to_file(out_path)
+
 
 def parse_args(args):
     """Parse command line parameters
@@ -68,7 +56,6 @@ def parse_args(args):
     parser.add_argument(
         dest="in_dir",
         help="the directory of Word docx files to process")
-
 
     parser.add_argument(
         dest="out_dir",
@@ -113,6 +100,8 @@ def main(args):
     args = parse_args(args)
     setup_logging(args.loglevel)
     _logger.info("Starting conversion...")
+    if not os.path.isdir(args.out_dir):
+        raise FileNotFoundError(f"output directory |{args.out_dir}| not found")
     convert_docs(args.in_dir, args.out_dir)
     _logger.info("Script ends here")
 
