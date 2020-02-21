@@ -2,7 +2,8 @@
 
 import pytest
 from lxml import etree
-from ddhi_encoder.ne_tagger import NamedEntityTaggerFactory, NamedEntity, PERSON, EVENT, GPE
+import spacy
+from ddhi_encoder.ne_tagger import NamedEntityTaggerFactory, DDHINETagger, NamedEntity, PERSON, EVENT, GPE, DATE
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
@@ -35,3 +36,18 @@ def test_EVENT():
     assert xml.tag == "name"
     assert xml.get("type") == "event"
     assert xml.text == text
+
+    # Now test the Named Entity Tagger class
+
+
+nlp = spacy.load("en_core_web_sm")
+utterance = etree.Element("u")
+utterance.text = "Jane ate yesterday and burped."
+
+
+def test_tagger():
+    tagger = NamedEntityTaggerFactory().tagger_for("DDHI")
+    assert isinstance(tagger, DDHINETagger)
+    tagger.nlp = nlp
+    result = tagger.tag_element(utterance)
+    assert result == "<persName>Jane</persName> ate <date>yesterday</date> and burped."

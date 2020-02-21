@@ -22,6 +22,12 @@ class NamedEntityTagger(object):
     def register_named_entity(self, entity_name, creator):
         self._creators[entity_name] = creator
 
+    def is_registered(self, entity_name):
+        if self._creators.get(entity_name):
+            return True
+        else:
+            return False
+
     def named_entity(self, name):
         entity = self._creators.get(name)
         if not entity:
@@ -39,6 +45,7 @@ class DDHINETagger(NamedEntityTagger):
         self.register_named_entity("PERSON", PERSON)
         self.register_named_entity("GPE", GPE)
         self.register_named_entity("EVENT", EVENT)
+        self.register_named_entity("DATE", DATE)
 
     def tag_element(self, element):
         doc = self._nlp(element.text)
@@ -55,11 +62,15 @@ class DDHINETagger(NamedEntityTagger):
                 continue
             if tok.ent_iob_ == 'O':
                 if in_ent:
-                    element_factory = self.named_entity(ent)
-                    element = element_factory(doc[start:idx].text)
-                    textlist.append(element.to_str())
-                    textlist.append(doc[idx-1].whitespace_)
-                    in_ent = False
+                    if self.is_registered(ent):
+                        element_factory = self.named_entity(ent)
+                        element = element_factory(doc[start:idx].text)
+                        textlist.append(element.to_str())
+                        textlist.append(doc[idx-1].whitespace_)
+                    else:
+                        textlist.append(doc[start:idx].text)
+                        textlist.append(doc[idx-1].whitespace_)
+                in_ent = False
                 textlist.append(doc[idx].text_with_ws)
         if in_ent:
             element_factory = self.named_entity(ent)
@@ -113,3 +124,11 @@ class EVENT(NamedEntity):
         element = etree.Element("name", type="event")
         element.text = self.text
         return element
+
+
+class DATE(NamedEntity):
+    def xml(self):
+        element = etree.Element("date")
+        element.text = self.text
+        return element
+
