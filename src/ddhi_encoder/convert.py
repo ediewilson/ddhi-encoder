@@ -23,7 +23,7 @@ import sys
 import logging
 from pathlib import Path
 
-from ddhi_encoder.interview import Interview, InterviewFactory
+from ddhi_encoder.interview import InterviewGenerator, InterviewGeneratorFactory
 from ddhi_encoder import __version__
 
 __author__ = "Clifford Wulfman"
@@ -34,7 +34,7 @@ _logger = logging.getLogger(__name__)
 
 
 def convert_doc(doc_path):
-    factory = InterviewFactory()
+    factory = InterviewGeneratorFactory()
     interview = factory.interview_for("DDHI", doc_path)
     interview.update_tei()
 #    interview.to_file(sys.stdout.buffer)

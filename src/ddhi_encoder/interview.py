@@ -6,7 +6,7 @@ from ddhi_encoder.word_parser import WordParserFactory
 import spacy
 
 
-class Interview:
+class InterviewGenerator:
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
     TEI = "{%s}" % TEI_NAMESPACE
     XML_NAMESPACE = "http://www.w3.org/XML/1998/namespace"
@@ -49,7 +49,7 @@ class Interview:
         self.tei_doc.write(filename, encoding="UTF-8", pretty_print=True)
 
 
-class InterviewFactory:
+class InterviewGeneratorFactory:
     def interview_for(self, project, path_to_docx):
         if project == "DDHI":
             factory = WordParserFactory()
@@ -57,4 +57,4 @@ class InterviewFactory:
                                     "teitemplate.xml")
             parser = factory.parser_for("DDHI")
             model = spacy.load("en_core_web_sm")
-            return Interview(parser, path_to_docx, template, model)
+            return InterviewGenerator(parser, path_to_docx, template, model)
