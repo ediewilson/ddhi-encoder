@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import pytest
 from lxml import etree
 import spacy
-from ddhi_encoder.ne_tagger import NamedEntity, NamedEntityTaggerFactory, DDHINETagger
+from ddhi_encoder.ne_tagger import NamedEntity, DDHINETagger
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
@@ -11,15 +10,6 @@ __license__ = "mit"
 
 
 nlp = spacy.load("en_core_web_sm")
-
-
-
-# def test_tagger():
-#     tagger = NamedEntityTaggerFactory().tagger_for("DDHI")
-#     assert isinstance(tagger, DDHINETagger)
-#     tagger.nlp = nlp
-#     result = tagger.tag_element(utterance)
-#     assert result == "<persName>Jane</persName> ate <date>yesterday</date> and burped."
 
 
 def test_Named_Entity():
