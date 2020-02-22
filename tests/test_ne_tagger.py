@@ -81,3 +81,11 @@ def test_process_token():
     assert tagger._latest_entity.element.tag == "persName"
     tagger.process_token(2)
     assert tagger.in_registered_entity() is True
+
+
+def test_tag():
+    utterance = etree.Element("u")
+    utterance.text = "Yesterday Jane ate and burped today."
+    tagger = DDHINETagger(nlp, utterance)
+    tagger.tag()
+    assert etree.tostring(tagger._root) == b'<u><date>Yesterday</date> <persName>Jane</persName> ate and burped <date>today</date>.</u>'

@@ -4,7 +4,6 @@
 import spacy
 from lxml import etree
 from abc import ABC, abstractmethod
-import pdb
 
 
 class NamedEntityTagger(object):
@@ -123,6 +122,10 @@ class NamedEntityTagger(object):
         for idx, tok in enumerate(self._doc):
             self.process_token(idx)
         self.complete()
+
+    def complete(self):
+        if self.current_entity:
+            self.process_entity_queue()
 
 
 class DDHINETagger(NamedEntityTagger):
