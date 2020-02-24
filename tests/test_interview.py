@@ -3,6 +3,7 @@
 import os
 from lxml import etree
 from ddhi_encoder.interview import Interview
+import spacy
 
 
 __author__ = "Clifford Wulfman"
@@ -24,5 +25,15 @@ def test_io():
         os.remove(outfile)
     except OSError:
         pass
+    interview.write(outfile)
+    assert os.path.isfile(outfile)
+
+
+def test_tagging():
+    interview = Interview()
+    interview.read(test_file)
+    interview.nlp = spacy.load('en_core_web_sm')
+    interview.tag()
+    outfile = os.path.join('/tmp', 'test_interview_tmpfile_tagged.xml')
     interview.write(outfile)
     assert os.path.isfile(outfile)

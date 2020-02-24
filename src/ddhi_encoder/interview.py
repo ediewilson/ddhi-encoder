@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # interview.py
 from lxml import etree
+from ddhi_encoder.ne_tagger import DDHINETagger
 
 
 class Interview:
@@ -18,6 +19,20 @@ class Interview:
                                    etree.XMLParser(remove_blank_text=True))
 
     def write(self, path):
-        self.tei_doc.write(path,
+        if self.tei_doc:
+            self.tei_doc.write(path,
+                               pretty_print=True,
+                               encoding='UTF-8')
+
+    def dump(self):
+        print(
+            etree.tostring(self.tei_doc,
                            pretty_print=True,
-                           encoding='UTF-8')
+                           encoding='unicode')
+            )
+
+    def tag(self):
+        utts = self.tei_doc.xpath("//tei:u", namespaces=self.namespaces)
+        for utt in utts:
+            tagger = DDHINETagger(self.nlp, utt)
+            tagger.tag()

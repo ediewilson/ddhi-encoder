@@ -140,10 +140,23 @@ class DDHINETagger(NamedEntityTagger):
     def __init__(self, nlp, element_to_tag):
         super().__init__(nlp, element_to_tag)
         self.register_named_entity("PERSON")
+        self.register_named_entity("NORP")
+        self.register_named_entity("FAC")
+        self.register_named_entity("ORG")
         self.register_named_entity("GPE")
+        self.register_named_entity("LOC")
+        self.register_named_entity("PRODUCT")
         self.register_named_entity("EVENT")
+        self.register_named_entity("WORK_OF_ART")
+        self.register_named_entity("LAW")
+        self.register_named_entity("LANGUAGE")
         self.register_named_entity("DATE")
-
+        self.register_named_entity("TIME")
+        self.register_named_entity("PERCENT")
+        self.register_named_entity("MONEY")
+        self.register_named_entity("QUANTITY")
+        self.register_named_entity("ORDINAL")
+        self.register_named_entity("CARDINAL")
 
 class NamedEntityTaggerFactory:
     def tagger_for(self, project):
@@ -157,9 +170,13 @@ class NamedEntity():
             self.element = etree.Element("persName")
         elif ename == "GPE":
             self.element = etree.Element("placeName")
+        elif ename == "ORG":
+            self.element = etree.Element("orgName")
         elif ename == "EVENT":
             self.element = etree.Element("name", type="event")
         elif ename == "DATE":
             self.element = etree.Element("date")
+        elif ename == "TIME":
+            self.element = etree.Element("time")
         else:
-            raise ValueError(ename)
+            self.element = etree.Element("rs", type=f"{ename}")
