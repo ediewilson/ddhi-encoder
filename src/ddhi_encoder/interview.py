@@ -11,8 +11,12 @@ class Interview:
     XML = "{%s}" % XML_NAMESPACE
     NSMAP = {None: TEI_NAMESPACE, "xml": XML_NAMESPACE}
 
-    def __init__(self):
+    def __init__(self, docpath=None, nlp=None):
         self.namespaces = {"tei": "http://www.tei-c.org/ns/1.0"}
+        if docpath:
+            self.read(docpath)
+        if nlp:
+            self.nlp = nlp
 
     def read(self, path):
         self.tei_doc = etree.parse(path,
