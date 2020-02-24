@@ -111,6 +111,16 @@ class NamedEntityTagger(object):
             entity.element.tail = self._doc[self._idx-1].whitespace_
             self._root.append(entity.element)
             self._latest_entity = entity
+        elif self.in_entity():  # in unregistered entity; just append text
+            text = self._doc[self.current_entity['start']:self._idx].text + self._doc[self._idx-1].whitespace_
+            if self._root.getchildren():
+                latest_tail = self.curr_tail().tail
+                self.curr_tail().tail = latest_tail + text
+            else:
+                if self._root.text:
+                    self._root.text += text
+                else:
+                    self._root.text = text
         else:
             self.append_to_end()
 
@@ -145,18 +155,19 @@ class DDHINETagger(NamedEntityTagger):
         self.register_named_entity("ORG")
         self.register_named_entity("GPE")
         self.register_named_entity("LOC")
-        self.register_named_entity("PRODUCT")
+        # self.register_named_entity("PRODUCT")
         self.register_named_entity("EVENT")
-        self.register_named_entity("WORK_OF_ART")
-        self.register_named_entity("LAW")
-        self.register_named_entity("LANGUAGE")
-        self.register_named_entity("DATE")
-        self.register_named_entity("TIME")
-        self.register_named_entity("PERCENT")
-        self.register_named_entity("MONEY")
-        self.register_named_entity("QUANTITY")
-        self.register_named_entity("ORDINAL")
-        self.register_named_entity("CARDINAL")
+        # self.register_named_entity("WORK_OF_ART")
+        # self.register_named_entity("LAW")
+        # self.register_named_entity("LANGUAGE")
+        # self.register_named_entity("DATE")
+        # self.register_named_entity("TIME")
+        # self.register_named_entity("PERCENT")
+        # self.register_named_entity("MONEY")
+        # self.register_named_entity("QUANTITY")
+        # self.register_named_entity("ORDINAL")
+        # self.register_named_entity("CARDINAL")
+
 
 class NamedEntityTaggerFactory:
     def tagger_for(self, project):
@@ -169,7 +180,7 @@ class NamedEntity():
         if ename == "PERSON":
             self.element = etree.Element("persName")
         elif ename == "GPE":
-            self.element = etree.Element("placeName")
+            self.element = etree.Element("placeName", type="GPE")
         elif ename == "ORG":
             self.element = etree.Element("orgName")
         elif ename == "EVENT":
@@ -178,5 +189,13 @@ class NamedEntity():
             self.element = etree.Element("date")
         elif ename == "TIME":
             self.element = etree.Element("time")
+        elif ename == "MONEY":
+            self.element = etree.Element("measure", type="money")
+        elif ename == "QUANTITY":
+            self.element = etree.Element("measure")
+        elif ename == "ORDINAL":
+            self.element = etree.Element("num", type="ordinal")
+        elif ename == "CARDINAL":
+            self.element = etree.Element("num", type="cardinal")
         else:
             self.element = etree.Element("rs", type=f"{ename}")
