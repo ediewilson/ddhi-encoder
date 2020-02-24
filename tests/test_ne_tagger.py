@@ -74,8 +74,8 @@ def test_process_token():
 
 
 def test_tag():
-    utterance = etree.Element("u")
-    utterance.text = "Yesterday Jane ate and burped today."
+    utterance = etree.Element("u", who="CARBONE")
+    utterance.text = r"So this is Riley Carbone, and I'm at Rauner [Special Collections] Library."
     tagger = DDHINETagger(nlp, utterance)
     tagger.tag()
-    assert etree.tostring(tagger._root) == b'<u><date>Yesterday</date> <persName>Jane</persName> ate and burped <date>today</date>.</u>'
+    assert etree.tostring(tagger._root) == b'<u who="CARBONE">So this is <persName>Riley Carbone</persName>, and I\'m at <persName>Rauner</persName> [Special Collections] Library.</u>'

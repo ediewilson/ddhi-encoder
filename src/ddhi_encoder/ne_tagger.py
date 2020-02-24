@@ -49,7 +49,11 @@ class NamedEntityTagger(object):
             return None
 
     def append_to_root(self):
-        self._root.text = self.curr_tok().text + self.curr_tok().whitespace_
+        addendum = self.curr_tok().text + self.curr_tok().whitespace_
+        if self._root.text:
+            self._root.text = self._root.text + addendum
+        else:
+            self._root.text = addendum
 
     def append_to_tail(self):
         latest_tail = self.curr_tail().tail
@@ -104,7 +108,7 @@ class NamedEntityTagger(object):
             entity = NamedEntity(self.current_entity['type'])
             entity.element.text = self._doc[self.current_entity['start']:self._idx].text
             # add whitespace_ to tail
-            entity.element.tail = self._doc[self._idx].whitespace_
+            entity.element.tail = self._doc[self._idx-1].whitespace_
             self._root.append(entity.element)
             self._latest_entity = entity
         else:
@@ -139,72 +143,6 @@ class DDHINETagger(NamedEntityTagger):
         self.register_named_entity("GPE")
         self.register_named_entity("EVENT")
         self.register_named_entity("DATE")
-
-    def tag_element_wrong(self, element):
-        doc = self._nlp(element.text)
-        # cache the attributes before clearing the element's contents
-        attrs = element.items()
-        element.clear()
-        [element.set(k, v) for k, v in attrs]
-        in_ent = False
-        for idx, tok in enumerate(doc):
-            if tok.ent_iob_ == 'B':
-                in_ent = True
-                ent = tok.ent_type_
-                start = idx
-                continue
-            if tok.ent_iob_ == 'I':
-                element.append(doc[idx-1].whitespace_)
-                continue
-            if tok.ent_iob_ == 'O':
-                if in_ent:
-                    if self.is_registered(ent):
-                        entity_factory = self.named_entity(ent)
-                        entity = entity_factory(doc[start:idx].text)
-                        element.append(entity.xml())
-                        element.append(doc[idx-1].whitespace_)
-                    else:
-                        element.append(doc[start:idx].text)
-                        element.append(doc[idx-1].whitespace_)
-                in_ent = False
-                element.append(doc[idx].text_with_ws)
-        if in_ent:
-            entity_factory = self.named_entity(ent)
-            entity = entity_factory(doc[start:idx].text)
-            element.append(entity.xml())
-        return element
-
-    def tag_element_old(self, element):
-        doc = self._nlp(element.text)
-        textlist = []
-        in_ent = False
-        for idx, tok in enumerate(doc):
-            if tok.ent_iob_ == 'B':
-                in_ent = True
-                ent = tok.ent_type_
-                start = idx
-                continue
-            if tok.ent_iob_ == 'I':
-                textlist.append(doc[idx-1].whitespace_)
-                continue
-            if tok.ent_iob_ == 'O':
-                if in_ent:
-                    if self.is_registered(ent):
-                        element_factory = self.named_entity(ent)
-                        element = element_factory(doc[start:idx].text)
-                        textlist.append(element.to_str())
-                        textlist.append(doc[idx-1].whitespace_)
-                    else:
-                        textlist.append(doc[start:idx].text)
-                        textlist.append(doc[idx-1].whitespace_)
-                in_ent = False
-                textlist.append(doc[idx].text_with_ws)
-        if in_ent:
-            element_factory = self.named_entity(ent)
-            element = element_factory(doc[start:].text)
-            textlist.append(element.to_str())
-
-        return etree.XML("".join(textlist))
 
 
 class NamedEntityTaggerFactory:
