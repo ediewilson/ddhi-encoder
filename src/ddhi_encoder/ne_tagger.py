@@ -184,7 +184,7 @@ class NamedEntity():
         elif ename == "ORG":
             self.element = etree.Element("orgName")
         elif ename == "EVENT":
-            self.element = etree.Element("name", type="event")
+            self.element = etree.Element("rs", type="event")
         elif ename == "DATE":
             self.element = etree.Element("date")
         elif ename == "TIME":
