@@ -160,7 +160,7 @@ class DDHINETagger(NamedEntityTagger):
         # self.register_named_entity("WORK_OF_ART")
         # self.register_named_entity("LAW")
         # self.register_named_entity("LANGUAGE")
-        # self.register_named_entity("DATE")
+        self.register_named_entity("DATE")
         # self.register_named_entity("TIME")
         # self.register_named_entity("PERCENT")
         # self.register_named_entity("MONEY")
