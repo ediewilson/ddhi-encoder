@@ -24,8 +24,12 @@ def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument("path_to_input",
                         help="the file(s) to tag")
-    parser.add_argument("path_to_output",
-                        help="where to write the file(s)")
+    parser.add_argument("model",
+                        help="Spacy model to use",
+                        default="en_core_web_sm")
+    parser.add_argument("-o", "--path_to_output",
+                        help="where to write the file(s)",
+                        default=sys.stdout.buffer)
     return parser.parse_args(args)
 
 
@@ -33,12 +37,12 @@ def main(args):
     """Main entry point allowing external calls
     """
     args = parse_args(args)
-    if os.path.isfile(args.path_to_input):
-        nlp = spacy.load('en_core_web_lg')
-        tag_interview(args.path_to_input, sys.stdout.buffer, nlp)
+    nlp = spacy.load(args.model)
 
+    if os.path.isfile(args.path_to_input):
+        # tag_interview(args.path_to_input, sys.stdout.buffer, nlp)
+        tag_interview(args.path_to_input, args.path_to_output, nlp)
     elif os.path.isdir(args.path_to_input) and os.path.isdir(args.path_to_output):
-        nlp = spacy.load('en_core_web_lg')
         for root, dirs, files in os.walk(args.path_to_input):
             for fname in files:
                 if fname.endswith(".xml"):

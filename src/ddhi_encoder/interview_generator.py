@@ -3,8 +3,7 @@
 import os
 from lxml import etree
 from ddhi_encoder.word_parser import WordParserFactory
-import spacy
-
+import logging
 
 class InterviewGenerator:
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
@@ -13,16 +12,13 @@ class InterviewGenerator:
     XML = "{%s}" % XML_NAMESPACE
     NSMAP = {None: TEI_NAMESPACE, "xml": XML_NAMESPACE}
 
-    def __init__(self, parser, path_to_docx, path_to_template, model):
+    def __init__(self, parser, path_to_docx, path_to_template):
         parser.parse(path_to_docx)
         self.utterances = parser.utterances
-        self._model = model
         self.tei_doc = etree.parse(
             path_to_template, etree.XMLParser(remove_blank_text=True)
         )
         self.namespaces = {"tei": "http://www.tei-c.org/ns/1.0"}
-        for utt in self.utterances:
-            utt.doc = self._model(utt.speech)
 
     def update_tei(self):
         body = self.tei_doc.xpath("//tei:body", namespaces=self.namespaces)[0]
@@ -56,5 +52,4 @@ class InterviewGeneratorFactory:
             template = os.path.join(os.path.dirname(__file__),
                                     "teitemplate.xml")
             parser = factory.parser_for("DDHI")
-            model = spacy.load("en_core_web_sm")
-            return InterviewGenerator(parser, path_to_docx, template, model)
+            return InterviewGenerator(parser, path_to_docx, template)
