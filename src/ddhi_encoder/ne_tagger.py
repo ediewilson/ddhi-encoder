@@ -69,6 +69,7 @@ class NamedEntityTagger(object):
     def update_current_entity(self):
         self.current_entity['type'] = self._doc[self._idx].ent_type_
         self.current_entity['start'] = self._idx
+        self.current_entity['kb_id'] = self._doc[self._idx].ent_kb_id_
 
     def process_token(self, idx):
         self._idx = idx
@@ -105,7 +106,7 @@ class NamedEntityTagger(object):
 
     def process_entity_queue(self):
         if self.in_registered_entity():
-            entity = NamedEntity(self.current_entity['type'])
+            entity = NamedEntity(self.current_entity)
             entity.element.text = self._doc[self.current_entity['start']:self._idx].text
             # add whitespace_ to tail
             entity.element.tail = self._doc[self._idx-1].whitespace_
@@ -150,8 +151,8 @@ class DDHINETagger(NamedEntityTagger):
     def __init__(self, nlp, element_to_tag):
         super().__init__(nlp, element_to_tag)
         self.register_named_entity("PERSON")
-        self.register_named_entity("NORP")
-        self.register_named_entity("FAC")
+        # self.register_named_entity("NORP")
+        # self.register_named_entity("FAC")
         self.register_named_entity("ORG")
         self.register_named_entity("GPE")
         self.register_named_entity("LOC")
@@ -176,15 +177,18 @@ class NamedEntityTaggerFactory:
 
 
 class NamedEntity():
-    def __init__(self, ename):
+    def __init__(self, entity):
+        ename = entity['type']
         if ename == "PERSON":
             self.element = etree.Element("persName")
         elif ename == "GPE":
-            self.element = etree.Element("placeName", type="GPE")
+            self.element = etree.Element("placeName")
+        elif ename == "LOC":
+            self.element = etree.Element("placeName")
         elif ename == "ORG":
             self.element = etree.Element("orgName")
         elif ename == "EVENT":
-            self.element = etree.Element("rs", type="event")
+            self.element = etree.Element("name", type="event")
         elif ename == "DATE":
             self.element = etree.Element("date")
         elif ename == "TIME":
@@ -199,3 +203,7 @@ class NamedEntity():
             self.element = etree.Element("num", type="cardinal")
         else:
             self.element = etree.Element("rs", type=f"{ename}")
+
+        # set ref, if there is one
+        if entity['kb_id'] and entity['kb_id'] != "NIL":
+            self.element.set("ref", f"#{entity['kb_id']}")
