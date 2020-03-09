@@ -140,8 +140,8 @@ class NamedEntityTagger(object):
 
     def complete(self):
         if self.current_entity:
+            self._idx = len(self._doc)
             self.process_entity_queue()
-
 
 class DDHINETagger(NamedEntityTagger):
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
@@ -151,17 +151,17 @@ class DDHINETagger(NamedEntityTagger):
     def __init__(self, nlp, element_to_tag):
         super().__init__(nlp, element_to_tag)
         self.register_named_entity("PERSON")
-        # self.register_named_entity("NORP")
-        # self.register_named_entity("FAC")
         self.register_named_entity("ORG")
         self.register_named_entity("GPE")
         self.register_named_entity("LOC")
-        # self.register_named_entity("PRODUCT")
         self.register_named_entity("EVENT")
+        self.register_named_entity("DATE")
+        # self.register_named_entity("NORP")
+        # self.register_named_entity("FAC")
+        # self.register_named_entity("PRODUCT")
         # self.register_named_entity("WORK_OF_ART")
         # self.register_named_entity("LAW")
         # self.register_named_entity("LANGUAGE")
-        self.register_named_entity("DATE")
         # self.register_named_entity("TIME")
         # self.register_named_entity("PERCENT")
         # self.register_named_entity("MONEY")
@@ -205,5 +205,5 @@ class NamedEntity():
             self.element = etree.Element("rs", type=f"{ename}")
 
         # set ref, if there is one
-        if entity['kb_id'] and entity['kb_id'] != "NIL":
-            self.element.set("ref", f"#{entity['kb_id']}")
+        # if entity['kb_id'] and entity['kb_id'] != "NIL":
+        #     self.element.set("ref", f"#{entity['kb_id']}")

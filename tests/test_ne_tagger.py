@@ -14,11 +14,11 @@ nlp = spacy.load("en_core_web_sm")
 
 def test_Named_Entity():
     comparandum = etree.Element("persName")
-    subject = NamedEntity("PERSON")
+    subject = NamedEntity({"type": "PERSON"})
     assert subject.element.tag == comparandum.tag
 
     comparandum = etree.Element("name", type="event")
-    subject = NamedEntity("EVENT")
+    subject = NamedEntity({"type": "EVENT"})
     assert subject.element.tag == comparandum.tag
     assert subject.element.attrib == comparandum.attrib
 
@@ -79,3 +79,10 @@ def test_tag():
     tagger = DDHINETagger(nlp, utterance)
     tagger.tag()
     assert etree.tostring(tagger._root) == b'<u who="CARBONE">So this is <persName>Riley Carbone</persName>, and I\'m at <persName>Rauner</persName> [Special Collections] Library.</u>'
+
+def test_tag_at_end_of_sentence():
+    utterance = etree.Element("u", who="SOLOMON")
+    utterance.text = r"In D.C."
+    tagger = DDHINETagger(nlp, utterance)
+    tagger.tag()
+    assert etree.tostring(tagger._root) == b'<u who="SOLOMON">In <placeName>D.C.</placeName></u>'
