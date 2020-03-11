@@ -46,3 +46,7 @@ class Utterance:
         utt_elem.text = self.speech
         # return etree.tostring(utt_elem)
         return utt_elem
+
+    def append(self, text):
+        self.speech = self.speech + "\n\n" + text
+        return self.speech
