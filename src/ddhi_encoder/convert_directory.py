@@ -8,9 +8,7 @@ import argparse
 import sys
 import os
 import logging
-from pathlib import Path
-
-from ddhi_encoder.interview_generator import InterviewGenerator, InterviewGeneratorFactory
+from ddhi_encoder.interview_generator import InterviewGeneratorFactory
 from ddhi_encoder import __version__
 
 __author__ = "Clifford Wulfman"
