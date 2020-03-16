@@ -21,10 +21,11 @@ def tag_interview(inpath, outpath, nlp):
 
 
 def parse_args(args):
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Add named-entity tags to a TEI transcript")
     parser.add_argument("path_to_input",
                         help="the file(s) to tag")
-    parser.add_argument("model",
+    parser.add_argument('-m', '--model',
                         help="Spacy model to use",
                         default="en_core_web_sm")
     parser.add_argument("-o", "--path_to_output",
