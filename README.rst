@@ -34,3 +34,20 @@ model. Before running ``ddhi_tag``, install Spacy's small English model:
 
 See `the Spacy documentation <https://spacy.io/models>`__ for more
 information.
+
+Use
+---
+
+Use ``ddhi_convert`` to transform a DOCX-encoded transcription into a
+simply structured TEI document:
+
+.. code:: bash
+
+   ddhi_convert ~/Desktop/transcripts/zien_jimmy_transcript_final.docx -o tmp.tei.xml
+
+Use ``ddhi_tag`` to add named-entity tags to a TEI-encoded
+transcription:
+
+.. code:: bash
+
+   ddhi_tag -o zien.tei.xml tmp.tei.xml
