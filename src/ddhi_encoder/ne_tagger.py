@@ -205,5 +205,5 @@ class NamedEntity():
             self.element = etree.Element("rs", type=f"{ename}")
 
         # set ref, if there is one
-        if entity['kb_id'] and entity['kb_id'] != "NIL":
+        if 'kb_id' in entity and entity['kb_id'] != '':
             self.element.set("ref", f"#{entity['kb_id']}")
