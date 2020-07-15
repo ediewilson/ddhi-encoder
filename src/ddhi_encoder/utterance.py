@@ -44,5 +44,6 @@ class Utterance:
         return utt_elem
 
     def append(self, text):
-        self.speech = self.speech + "\n\n" + text
+#        self.speech = self.speech + "\n\n" + text
+        self.speech = self.speech + text
         return self.speech
