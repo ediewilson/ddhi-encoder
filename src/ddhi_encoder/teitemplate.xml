@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="ddhi.rnc" type="application/relax-ng-compact-syntax"?>
+<?xml-model href="../schemas/ddhi.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
       <fileDesc>
@@ -34,7 +34,7 @@
            <p>The Dartmouth Vietnam Project</p>
         </projectDesc>
         <appInfo>
-           <application ident="DDHIEncoder" version="0.1.1">
+           <application ident="DDHIEncoder" version="1.0">
               <desc>Conversion from Word docx to TEI xml.</desc>
            </application>
         </appInfo>
