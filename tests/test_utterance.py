@@ -36,4 +36,4 @@ def test_special_chars():
     utterance.nlp = spacy.load("en_core_web_sm")
     utterance.process()
     xml = utterance.xml()
-    assert xml.text == "Jack gave the &lt;ball&gt; to Jane &amp; Jim"
+    assert xml.text == "Jack gave the <ball> to Jane & Jim"
