@@ -12,7 +12,7 @@ test_file = os.path.join(
     )
 
 
-def test_place_names():
+def test_places():
     extractor = NeExtractor(test_file)
-    assert b'foo' in extractor.place_names()
-
+    list = extractor.place_names_list()
+    assert list[0]['id'] == 'dvp_17_place1'

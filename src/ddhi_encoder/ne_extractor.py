@@ -23,6 +23,24 @@ class NeExtractor:
         return self.tei_doc.xpath("//tei:standOff//tei:place",
                            namespaces=self.namespaces)
 
+    def place_names_list(self):
+        places = self.places()
+        thelist = list()
+        for place in places:
+            id = place.get('{http://www.w3.org/XML/1998/namespace}id')
+            placeName = place.xpath(".//tei:placeName",
+                                    namespaces=self.namespaces)[0].text
+            thelist.append({'id': id, 'placeName': placeName})
+        return thelist
+
+    def to_tsv(self, list, stream=sys.stdout):
+        writer = csv.DictWriter(stream,
+                                fieldnames=[k for k in list[0].keys()],
+                                delimiter="\t")
+        writer.writeheader()
+        for row in list:
+            writer.writerow(row)
+
     def extract_place_names(self, stream=sys.stdout):
         places = self.places()
         writer = csv.DictWriter(stream,
