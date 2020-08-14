@@ -40,16 +40,3 @@ class NeExtractor:
         writer.writeheader()
         for row in list:
             writer.writerow(row)
-
-    def extract_place_names(self, stream=sys.stdout):
-        places = self.places()
-        writer = csv.DictWriter(stream,
-                                fieldnames=['id', 'placeName'],
-                                delimiter="\t")
-        writer.writeheader()
-        for place in places:
-            id = place.get('{http://www.w3.org/XML/1998/namespace}id')
-            placeName = place.xpath(".//tei:placeName",
-                                     namespaces=self.namespaces)
-            writer.writerow({'id': id,
-                             'placeName': placeName[0].text})
