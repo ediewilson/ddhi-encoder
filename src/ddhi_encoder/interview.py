@@ -40,3 +40,7 @@ class Interview:
         for utt in utts:
             tagger = DDHINETagger(self.nlp, utt)
             tagger.tag()
+
+    def places(self):
+        return self.tei_doc.xpath("//tei:standOff/tei:listPlace/tei:place",
+                                  namespaces=self.namespaces)
