@@ -2,7 +2,7 @@
 from ddhi_encoder.modifiers.modifiers import Standoff
 from ddhi_encoder.interview import Interview
 import os
-from lxml import etree
+
 
 def test_tsv():
     tsv = os.path.join(os.path.dirname(__file__),

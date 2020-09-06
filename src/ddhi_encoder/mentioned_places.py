@@ -20,10 +20,6 @@ def to_tsv(list, stream=sys.stdout):
         writer.writerow(row)
 
 
-def mentioned_places(doc_path, out_path):
-    extractor = NeExtractor(doc_path, out_path)
-
-
 def parse_args(args):
     parser = argparse.ArgumentParser(
         description="export standoff places to tsv")
@@ -52,6 +48,7 @@ def main(args):
     extractor = NeExtractor(args.file)
     place_names_list = extractor.place_names_list()
     to_tsv(place_names_list)
+
 
 def run():
     """Entry point for console_scripts
