@@ -32,3 +32,7 @@ def test_modification():
 
     rauner_loc = "43.70447 -72.28817"
     assert places[0][1][0].text == rauner_loc
+
+    rauner_qid = "Q98544730"
+    assert places[0][2].text == rauner_qid
+    assert places[0][2].get("type") == "WD"

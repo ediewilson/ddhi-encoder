@@ -39,13 +39,6 @@ class Standoff(Modifier):
             for row in reader:
                 self._data.append(row.copy())
 
-    def modify_old(self):
-        tei = self.target.tei_doc.xpath("//tei:TEI",
-                                        namespaces=self.namespaces)[0]
-
-        standoff = etree.Element(self.TEI + "standoff", nsmap=self.NSMAP)
-        tei.append(standoff)
-
     def modify(self):
         for row in self.data:
             expr = f"//*[@xml:id = \"{row['id']}\"]"
@@ -59,6 +52,7 @@ class Standoff(Modifier):
                                           nsmap=self.NSMAP)
                 placeName.text = row['placeName']
                 place.append(placeName)
+
             if row['coordinate location']:
                 location = etree.SubElement(place, self.TEI + "location",
                                             nsmap=self.NSMAP)
@@ -66,3 +60,9 @@ class Standoff(Modifier):
                                        nsmap=self.NSMAP)
                 # TODO: remove comma in the geo text
                 geo.text = row['coordinate location'].replace(',', ' ')
+
+            if row['QID']:
+                idno = etree.SubElement(place, self.TEI + "idno",
+                                        nsmap=self.NSMAP)
+                idno.set("type", "WD")
+                idno.text = row['QID']
