@@ -59,6 +59,7 @@ Use ``ddhi_mentioned_places`` to extract the places in a TEI file's
 standoff markup and print it as tab-separated values:
 
 .. code:: bash
+
 	  ddhi_mentioned_places lovely.tei.xml > lovely.tsv
 
 Use ``ddhi_update_places`` to update the places in a TEI file's
@@ -66,4 +67,7 @@ standoff markup with identifiers and geo-coordinates obtained via
 OpenRefine or other procedure:
 
 .. code:: bash
-	  ddhi_update_places lovely.tei.xml lovely_updates.tsv > updated_lovely.tei.xml
+
+	  ddhi_update_places lovely.tei.xml lovely_updates.tsv >
+	  updated_lovely.tei.xml
+	  
