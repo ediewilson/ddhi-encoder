@@ -9,12 +9,15 @@ DDHI Encoder
 
 The ddhi-encoder package is being developed to assist encoders in the
 DDHI project in encoding oral history interview transcripts in TEI. At
-present, it contains two command-line utilities:
+present, it contains three command-line utilities:
 
 #. ``ddhi_convert``: convert a Dartmouth DVP transcript from docx to
    tei.xml.
 #. ``ddhi_tag``: perform named-entity tagging on a DDHI TEI
    transcription.
+#. ``ddhi_mentioned_places``: extract places from stand-off markup
+   for processing with OpenRefine
+#. ``ddhi_update_places``: update places in stand-off markup
 
 Installation
 ------------
@@ -51,3 +54,16 @@ transcription:
 .. code:: bash
 
    ddhi_tag -o zien.tei.xml tmp.tei.xml
+
+Use ``ddhi_mentioned_places`` to extract the places in a TEI file's
+standoff markup and print it as tab-separated values:
+
+.. code:: bash
+	  ddhi_mentioned_places lovely.tei.xml > lovely.tsv
+
+Use ``ddhi_update_places`` to update the places in a TEI file's
+standoff markup with identifiers and geo-coordinates obtained via
+OpenRefine or other procedure:
+
+.. code:: bash
+	  ddhi_update_places lovely.tei.xml lovely_updates.tsv > updated_lovely.tei.xml
