@@ -4,18 +4,6 @@ import csv
 
 
 class Modifier(object):
-    def __init__(self, target):
-        self._target = target
-
-    @property
-    def target(self):
-        return self._target
-
-    def modify(self):
-        pass
-
-
-class Standoff(Modifier):
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
     TEI = "{%s}" % TEI_NAMESPACE
     XML_NAMESPACE = "http://www.w3.org/XML/1998/namespace"
@@ -25,7 +13,11 @@ class Standoff(Modifier):
     def __init__(self, target):
         self.namespaces = {"tei": "http://www.tei-c.org/ns/1.0",
                            "xml": "http://www.w3.org/XML/1998/namespace"}
-        super().__init__(target)
+        self._target = target
+
+    @property
+    def target(self):
+        return self._target
 
     @property
     def data(self):
@@ -39,6 +31,11 @@ class Standoff(Modifier):
             for row in reader:
                 self._data.append(row.copy())
 
+    def modify(self):
+        pass
+
+
+class Standoff(Modifier):
     def modify(self):
         for row in self.data:
             expr = f"//*[@xml:id = \"{row['id']}\"]"
@@ -63,6 +60,38 @@ class Standoff(Modifier):
 
             if row['QID']:
                 idno = etree.SubElement(place, self.TEI + "idno",
+                                        nsmap=self.NSMAP)
+                idno.set("type", "WD")
+                idno.text = row['QID']
+
+
+class Event(Modifier):
+    def modify(self):
+        for row in self.data:
+            expr = f"//*[@xml:id = \"{row['id']}\"]"
+            event = self.target.tei_doc.xpath(expr)[0]
+
+            desc = event.xpath('tei:desc',
+                                    namespaces=self.namespaces)
+            if len(desc):
+                desc[0].text = row['name']
+            else:
+                desc = etree.element(self.TEI + "desc",
+                                          nsmap=self.NSMAP)
+                desc.text = row['name']
+                event.append(desc)
+
+            if row['point in time']:
+                event.set("when-iso", row['point in time'])
+
+            if row['start time']:
+                event.set("from-iso", row['start time'])
+
+            if row['end time']:
+                event.set("to-iso", row['end time'])
+                          
+            if row['QID']:
+                idno = etree.SubElement(event, self.TEI + "idno",
                                         nsmap=self.NSMAP)
                 idno.set("type", "WD")
                 idno.text = row['QID']
