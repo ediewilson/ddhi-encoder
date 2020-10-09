@@ -16,3 +16,8 @@ def test_places():
     extractor = NeExtractor(test_file)
     list = extractor.place_names_list()
     assert list[0]['id'] == 'dvp_17_place1'
+
+def test_events():
+    extractor = NeExtractor(test_file)
+    list = extractor.event_names_list()
+    assert list[0]['id'] == 'dvp_17_event1'

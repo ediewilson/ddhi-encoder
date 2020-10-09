@@ -7,7 +7,6 @@ import csv
 class NeExtractor:
     """Extracts named entities from a TEI document."""
 
-
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
     TEI = "{%s}" % TEI_NAMESPACE
     XML_NAMESPACE = "http://www.w3.org/xml/1998/namespace"
@@ -21,7 +20,11 @@ class NeExtractor:
 
     def places(self):
         return self.tei_doc.xpath("//tei:standOff//tei:place",
-                           namespaces=self.namespaces)
+                                  namespaces=self.namespaces)
+
+    def events(self):
+        return self.tei_doc.xpath("//tei:standOff//tei:event",
+                                  namespaces=self.namespaces)
 
     def place_names_list(self):
         places = self.places()
@@ -31,6 +34,16 @@ class NeExtractor:
             placeName = place.xpath(".//tei:placeName",
                                     namespaces=self.namespaces)[0].text
             thelist.append({'id': id, 'placeName': placeName})
+        return thelist
+
+    def event_names_list(self):
+        events = self.events()
+        thelist = list()
+        for event in events:
+            id = event.get('{http://www.w3.org/XML/1998/namespace}id')
+            desc = event.xpath(".//tei:desc",
+                               namespaces=self.namespaces)[0].text
+            thelist.append({'id': id, 'name': desc})
         return thelist
 
     def to_tsv(self, list, stream=sys.stdout):
