@@ -44,3 +44,7 @@ class Interview:
     def places(self):
         return self.tei_doc.xpath("//tei:standOff/tei:listPlace/tei:place",
                                   namespaces=self.namespaces)
+
+    def events(self):
+        return self.tei_doc.xpath("//tei:standOff/tei:listEvent/tei:event",
+                                  namespaces=self.namespaces)
