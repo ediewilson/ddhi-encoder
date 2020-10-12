@@ -119,9 +119,21 @@ class Standoff(Modifier):
         return self.target.tei_doc.xpath("//tei:body//tei:name[@type='event']",
                                          namespaces=self.namespaces)
 
+    @property
+    def persNames(self):
+        return self.target.tei_doc.xpath("//tei:body//tei:persName",
+                                         namespaces=self.namespaces)
+
+    @property
+    def orgNames(self):
+        return self.target.tei_doc.xpath("//tei:body//tei:orgName",
+                                         namespaces=self.namespaces)
+
     def modify(self):
         self.mark_places()
         self.mark_events()
+        self.mark_persons()
+        self.mark_orgs()
 
     def mark_places(self):
         listPlace = lxml.etree.SubElement(self.stand_off,
@@ -151,3 +163,31 @@ class Standoff(Modifier):
                                          nsmap=self.NSMAP)
             desc.text = name.text
             name.set("ref", f"#{event_id}")
+
+    def mark_persons(self):
+        listPerson = lxml.etree.SubElement(self.stand_off,
+                                          self.TEI + "listPerson",
+                                          nsmap=self.NSMAP)
+        for name in self.persNames:
+            person_id = f"{self.iv_id}_person_{self.persNames.index(name)}"
+            person = lxml.etree.SubElement(listPerson, self.TEI + "person",
+                                          nsmap=self.NSMAP)
+            person.set(self.XML + "id", person_id)
+            pname = lxml.etree.SubElement(person, self.TEI + "persName",
+                                          nsmap=self.NSMAP)
+            pname.text = name.text
+            name.set("ref", f"#{person_id}")
+
+    def mark_orgs(self):
+        listOrg = lxml.etree.SubElement(self.stand_off,
+                                          self.TEI + "listOrg",
+                                          nsmap=self.NSMAP)
+        for name in self.orgNames:
+            org_id = f"{self.iv_id}_org_{self.orgNames.index(name)}"
+            org = lxml.etree.SubElement(listOrg, self.TEI + "org",
+                                          nsmap=self.NSMAP)
+            org.set(self.XML + "id", org_id)
+            pname = lxml.etree.SubElement(org, self.TEI + "orgName",
+                                          nsmap=self.NSMAP)
+            pname.text = name.text
+            name.set("ref", f"#{org_id}")
