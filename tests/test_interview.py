@@ -37,3 +37,14 @@ def test_tagging():
     outfile = os.path.join('/tmp', 'test_interview_tmpfile_tagged.xml')
     interview.write(outfile)
     assert os.path.isfile(outfile)
+
+
+def test_xpaths():
+    test_file = os.path.join(os.path.dirname(__file__),
+                             "test1.tei.xml"
+                             )
+    interview = Interview()
+    interview.read(test_file)
+    placeNames = interview.placeNames()
+    assert len(placeNames) == 1
+    assert len(interview.eventNames()) == 1

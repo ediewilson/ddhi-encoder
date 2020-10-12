@@ -1,38 +1,28 @@
 # -*- coding: utf-8 -*-
 from ddhi_encoder.modifiers.modifiers import Standoff
 from ddhi_encoder.interview import Interview
+from lxml import etree
 import os
 
 
-def test_tsv():
-    tsv = os.path.join(os.path.dirname(__file__),
-                       "lovely.tsv")
-    iv = os.path.join(os.path.dirname(__file__),
-                      "lovely.tei.xml")
-    interview = Interview()
-    interview.read(iv)
-    modifier = Standoff(interview)
-    modifier.data = tsv
-    assert modifier.data[1]['placeName'] == "Boston"
-
-
 def test_modification():
-    tsv = os.path.join(os.path.dirname(__file__),
-                       "lovely.tsv")
     iv = os.path.join(os.path.dirname(__file__),
-                      "lovely.tei.xml")
+                      "test_standoff.tei.xml")
     interview = Interview()
     interview.read(iv)
-    places = interview.places()
-    assert places[0][0].text == "Rauner [Special Collections] Library"
+    path = interview.tei_doc.xpath("//tei:standOff/tei:listPlace",
+                                   namespaces=interview.namespaces)
+    so = interview.standOff()
+    assert len(so) == 1
+    assert len(path) == 0
+    interview.write("/tmp/before.xml")
     modifier = Standoff(interview)
-    modifier.data = tsv
     modifier.modify()
-    assert places[0][0].text == "Rauner Special Collections Library"
+    interview.write("/tmp/after.xml")
+    path = interview.tei_doc.xpath("//tei:standOff/tei:listPlace/tei:place[1]/tei:placeName[1]/text()",
+                                   namespaces=interview.namespaces)
+    assert path[0] == "Rauner [Special Collections] Library"
 
-    rauner_loc = "43.70447 -72.28817"
-    assert places[0][1][0].text == rauner_loc
-
-    rauner_qid = "Q98544730"
-    assert places[0][2].text == rauner_qid
-    assert places[0][2].get("type") == "WD"
+    an_event = interview.tei_doc.xpath("//tei:standOff/tei:listEvent/tei:event[1]/tei:desc[1]/text()",
+                                   namespaces=interview.namespaces)
+    assert an_event[0] == "Vietnam War"

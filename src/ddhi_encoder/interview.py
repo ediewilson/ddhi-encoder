@@ -48,3 +48,16 @@ class Interview:
     def events(self):
         return self.tei_doc.xpath("//tei:standOff/tei:listEvent/tei:event",
                                   namespaces=self.namespaces)
+
+    def placeNames(self):
+        return self.tei_doc.xpath("//tei:body//tei:placeName",
+                                  namespaces=self.namespaces)
+
+    def eventNames(self):
+        return self.tei_doc.xpath("//tei:body//tei:name[@type='event']",
+                                  namespaces=self.namespaces)
+
+    def standOff(self):
+        return self.tei_doc.xpath("//tei:standOff",
+                                  namespaces=self.namespaces)
+        

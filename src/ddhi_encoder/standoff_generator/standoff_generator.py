@@ -10,11 +10,10 @@ class StandoffGenerator(object):
 
     NSMAP = {None: TEI_NAMESPACE}  # default namespace
 
-    def __init__(self, doc):
-        self._tei_doc = doc
+    def __init__(self, target):
+        self._tei_doc = target
         self.namespaces = {"tei": "http://www.tei-c.org/ns/1.0",
                            "xml": "http://www.w3.org/XML/1998/namespace"}
-
 
     @property
     def tei_doc(self):

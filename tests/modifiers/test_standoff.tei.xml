@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/ddhi.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="dvp_test1">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>test transcript</title>
+         </titleStmt>
+         <publicationStmt>
+            <authority>
+               <orgName ref="#">Dartmouth Digital History Initiative</orgName>
+            </authority>
+            <date>
+          <!--  Date of publication, e.g. for citation purposes  -->
+        </date>
+            <idno type="DDHI">dvp_test1</idno>
+         </publicationStmt>
+         <sourceDesc>
+            <recordingStmt>
+               <recording xml:id="primary_recording" type="audio" dur-iso="9">
+                  <media url="" mimeType="MIMEaudio/wav"/>
+               </recording>
+            </recordingStmt>
+            <bibl xml:id="primary_transcription">
+               <respStmt>
+                  <persName ref="#">Mimi Eisenberg</persName>
+                  <orgName ref="#">Wordcraft</orgName>
+                  <resp ref="http://id.loc.gov/vocabulary/relators/trc.html">Transcriber</resp>
+               </respStmt>
+               <ref target="path_to_file">Primary transcription</ref>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The Dartmouth Vietnam Project</p>
+         </projectDesc>
+         <appInfo>
+            <application ident="DDHIEncoder" version="1.0.5">
+               <desc>Conversion from Word docx to TEI xml.</desc>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en-us">English</language>
+         </langUsage>
+         <particDesc>
+            <person xml:id="LOVELY"/>
+            <person xml:id="BURACK"/>
+         </particDesc>
+         <settingDesc>
+            <setting>
+               <date when-iso="2016-02-10"/>
+               <locale/>
+            </setting>
+         </settingDesc>
+      </profileDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <u who="BURACK">This is fake data just created for testing.  <persName>Emily Burack</persName>. I am sitting here in <placeName>Rauner [Special Collections] Library</placeName> on <date when="2016-02-10">Wednesday, February 10th, 2016</date>, and 3:02 p.m. in the afternoon. An event is the <name type="event">Vietnam War</name>.  An organization is <orgName>Dartmouth College</orgName>.</u>
+      </body>
+  </text>
+  <standOff/>
+ </TEI>

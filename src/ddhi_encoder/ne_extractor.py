@@ -23,7 +23,7 @@ class NeExtractor:
                                   namespaces=self.namespaces)
 
     def events(self):
-        return self.tei_doc.xpath("//tei:standOff//tei:event",
+        return self.tei_doc.xpath("//tei:u//tei:name[@type='event']",
                                   namespaces=self.namespaces)
 
     def place_names_list(self):
