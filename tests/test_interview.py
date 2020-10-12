@@ -46,5 +46,5 @@ def test_xpaths():
     interview = Interview()
     interview.read(test_file)
     placeNames = interview.placeNames()
-    assert len(placeNames) == 1
-    assert len(interview.eventNames()) == 1
+    assert len(placeNames) == 2
+    assert len(interview.eventNames()) == 0

@@ -25,4 +25,4 @@ def test_places():
 def test_events():
     extractor = NeExtractor(test_file)
     events = extractor.events()
-    assert len(events) == 15
+    assert len(events) == 7

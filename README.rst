@@ -55,12 +55,21 @@ transcription:
 
    ddhi_tag -o zien.tei.xml tmp.tei.xml
 
+Encoders are then expected to edit the text of the interview,
+correcting automatically generated named-entity tags and adding new
+ones.  when this phase of editing is complete, use
+``ddhi_generate_standoff`` to  create a ``<standOff>`` element in the
+interview and link the entities to names in the text.
+
 Use ``ddhi_mentioned_places`` to extract the places in a TEI file's
 standoff markup and print it as tab-separated values:
 
 .. code:: bash
 
 	  ddhi_mentioned_places lovely.tei.xml > lovely.tsv
+
+Then use OpenRefine or another tool to refine this list with
+identifiers and other metadata.
 
 Use ``ddhi_update_places`` to update the places in a TEI file's
 standoff markup with identifiers and geo-coordinates obtained via
@@ -71,3 +80,5 @@ OpenRefine or other procedure:
 	  ddhi_update_places lovely.tei.xml lovely_updates.tsv >
 	  updated_lovely.tei.xml
 	  
+Similarly, use ``ddhi_mentioned_events`` and ``ddhi_update_events`` to
+perform the same operations for events.
