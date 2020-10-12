@@ -107,7 +107,14 @@ class Standoff(Modifier):
 
     @property
     def stand_off(self):
-        return self.target.standOff()[0]
+        if self.target.standOff():
+            return self.target.standOff()[0]
+        else:
+            return lxml.etree.SubElement(
+                self.target.tei_doc.xpath("//tei:TEI",
+                                          namespaces=self.namespaces)[0],
+                self.TEI + "standOff",
+                nsmap=self.NSMAP)
 
     @property
     def placeNames(self):

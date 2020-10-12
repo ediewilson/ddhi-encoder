@@ -2,9 +2,10 @@
 
 import argparse
 import sys
-from ddhi_encoder.modifiers.modifiers import Event
+from ddhi_encoder.modifiers.modifiers import Standoff
 from ddhi_encoder.interview import Interview
 from ddhi_encoder import __version__
+
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
@@ -13,14 +14,13 @@ __license__ = "mit"
 
 def parse_args(args):
     parser = argparse.ArgumentParser(
-        description="updates events in standoff")
+        description="export standoff places to tsv")
     parser.add_argument(
         "--version",
         action="version",
         version="ddhi-encoder {ver}".format(ver=__version__))
 
-    parser.add_argument('tei', help="the TEI document")
-    parser.add_argument('tsv', help="the tsv update document")
+    parser.add_argument('file', help="the TEI document")
 
     parser.add_argument('-o', '--outfile',
                         dest="outfile",
@@ -38,9 +38,8 @@ def main(args):
     """
     args = parse_args(args)
     interview = Interview()
-    interview.read(args.tei)
-    modifier = Event(interview)
-    modifier.data = args.tsv
+    interview.read(args.file)
+    modifier = Standoff(interview)
     modifier.modify()
     interview.write(args.outfile)
 
