@@ -22,6 +22,14 @@ class NeExtractor:
         return self.tei_doc.xpath("//tei:standOff//tei:place",
                                   namespaces=self.namespaces)
 
+    def persons(self):
+        return self.tei_doc.xpath("//tei:standOff//tei:person",
+                                  namespaces=self.namespaces)
+
+    def orgs(self):
+        return self.tei_doc.xpath("//tei:standOff//tei:org",
+                                  namespaces=self.namespaces)
+
     def events(self):
         return self.tei_doc.xpath("//tei:standOff//tei:event",
                                   namespaces=self.namespaces)
@@ -34,6 +42,26 @@ class NeExtractor:
             placeName = place.xpath(".//tei:placeName",
                                     namespaces=self.namespaces)[0].text
             thelist.append({'id': id, 'placeName': placeName})
+        return thelist
+
+    def person_names_list(self):
+        persons = self.persons()
+        thelist = list()
+        for person in persons:
+            id = person.get('{http://www.w3.org/XML/1998/namespace}id')
+            persName = person.xpath(".//tei:persName",
+                                    namespaces=self.namespaces)[0].text
+            thelist.append({'id': id, 'persName': persName})
+        return thelist
+
+    def org_names_list(self):
+        orgs = self.orgs()
+        thelist = list()
+        for org in orgs:
+            id = org.get('{http://www.w3.org/XML/1998/namespace}id')
+            orgName = org.xpath(".//tei:orgName",
+                                    namespaces=self.namespaces)[0].text
+            thelist.append({'id': id, 'orgName': orgName})
         return thelist
 
     def event_names_list(self):

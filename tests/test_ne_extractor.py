@@ -17,12 +17,17 @@ def test_places():
     list = extractor.place_names_list()
     assert list[0]['id'] == 'dvp_17_place1'
 
-# def test_events():
-#    extractor = NeExtractor(test_file)
-#    list = extractor.event_names_list()
-#    assert list[0]['id'] == 'dvp_17_event1'
 
 def test_events():
     extractor = NeExtractor(test_file)
-    events = extractor.events()
-    assert len(events) == 7
+    assert len(extractor.events()) == 7
+
+
+def test_persons():
+    extractor = NeExtractor(test_file)
+    assert len(extractor.persons()) == 14
+
+
+def test_orgs():
+    extractor = NeExtractor(test_file)
+    assert len(extractor.orgs()) == 21
