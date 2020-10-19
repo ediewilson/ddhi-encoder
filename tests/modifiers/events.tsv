@@ -1,3 +1,3 @@
-id	name	start time	end time	point in time	QID	dvpid
+id	name	start time	end time	point in time	QID	dvp_id
 dvp_013_event2	Vietnam War	1965-11-01T00:00:00Z	1975-04-30T00:00:00Z	1955-11-01T00:00:00Z	Q8740	
 dvp_013_event1	Attack on Pearl Harbor			1941-12-07T00:00:00Z	Q52418	
