@@ -45,12 +45,28 @@ class Interview:
         return self.tei_doc.xpath("//tei:standOff/tei:listPlace/tei:place",
                                   namespaces=self.namespaces)
 
+    def persons(self):
+        return self.tei_doc.xpath("//tei:standOff/tei:listPerson/tei:person",
+                                  namespaces=self.namespaces)
+    
+    def orgs(self):
+        return self.tei_doc.xpath("//tei:standOff/tei:listOrg/tei:org",
+                                  namespaces=self.namespaces)
+    
     def events(self):
         return self.tei_doc.xpath("//tei:standOff/tei:listEvent/tei:event",
                                   namespaces=self.namespaces)
 
     def placeNames(self):
         return self.tei_doc.xpath("//tei:body//tei:placeName",
+                                  namespaces=self.namespaces)
+
+    def persNames(self):
+        return self.tei_doc.xpath("//tei:body//tei:persName",
+                                  namespaces=self.namespaces)
+
+    def orgNames(self):
+        return self.tei_doc.xpath("//tei:body//tei:orgName",
                                   namespaces=self.namespaces)
 
     def eventNames(self):

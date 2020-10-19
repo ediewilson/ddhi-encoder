@@ -2,7 +2,7 @@
 import xml.etree.ElementTree as ET
 import lxml
 import csv
-import pdb
+
 
 class Modifier(object):
     TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
@@ -64,6 +64,68 @@ class Place(Modifier):
                 idno.set("type", "WD")
                 idno.text = row['QID']
 
+            if ("dvp_id" in row.keys() and row['dvp_id']):
+                idno = lxml.etree.SubElement(place, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "project")
+                idno.text = row['dvp_id']
+
+
+class Person(Modifier):
+    def modify(self):
+        for row in self.data:
+            expr = f"//*[@xml:id = \"{row['id']}\"]"
+            person = self.target.tei_doc.xpath(expr)[0]
+            persName = person.xpath('tei:persName',
+                                    namespaces=self.namespaces)
+            if len(persName):
+                persName[0].text = row['persName']
+            else:
+                persName = ET.Element(self.TEI + "persName",
+                                      nsmap=self.NSMAP)
+                persName.text = row['persName']
+                person.append(persName)
+
+            if row['QID']:
+                idno = lxml.etree.SubElement(person, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "WD")
+                idno.text = row['QID']
+
+            if ("dvp_id" in row.keys() and row['dvp_id']):
+                idno = lxml.etree.SubElement(person, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "project")
+                idno.text = row['dvp_id']
+
+
+class Org(Modifier):
+    def modify(self):
+        for row in self.data:
+            expr = f"//*[@xml:id = \"{row['id']}\"]"
+            org = self.target.tei_doc.xpath(expr)[0]
+            orgName = org.xpath('tei:orgName',
+                                   namespaces=self.namespaces)
+            if len(orgName):
+                orgName[0].text = row['orgName']
+            else:
+                orgName = ET.Element(self.TEI + "orgName",
+                                       nsmap=self.NSMAP)
+                orgName.text = row['orgName']
+                org.append(orgName)
+
+            if row['QID']:
+                idno = lxml.etree.SubElement(org, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "WD")
+                idno.text = row['QID']
+
+            if ("dvp_id" in row.keys() and row['dvp_id']):
+                idno = lxml.etree.SubElement(org, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "project")
+                idno.text = row['dvp_id']
+
 
 class Event(Modifier):
     def modify(self):
@@ -95,6 +157,12 @@ class Event(Modifier):
                                              nsmap=self.NSMAP)
                 idno.set("type", "WD")
                 idno.text = row['QID']
+
+            if ("dvp_id" in row.keys() and row['dvp_id']):
+                idno = lxml.etree.SubElement(event, self.TEI + "idno",
+                                             nsmap=self.NSMAP)
+                idno.set("type", "project")
+                idno.text = row['dvp_id']
 
 
 class Standoff(Modifier):
@@ -173,12 +241,12 @@ class Standoff(Modifier):
 
     def mark_persons(self):
         listPerson = lxml.etree.SubElement(self.stand_off,
-                                          self.TEI + "listPerson",
-                                          nsmap=self.NSMAP)
+                                           self.TEI + "listPerson",
+                                           nsmap=self.NSMAP)
         for name in self.persNames:
             person_id = f"{self.iv_id}_person_{self.persNames.index(name)}"
             person = lxml.etree.SubElement(listPerson, self.TEI + "person",
-                                          nsmap=self.NSMAP)
+                                           nsmap=self.NSMAP)
             person.set(self.XML + "id", person_id)
             pname = lxml.etree.SubElement(person, self.TEI + "persName",
                                           nsmap=self.NSMAP)
@@ -187,12 +255,12 @@ class Standoff(Modifier):
 
     def mark_orgs(self):
         listOrg = lxml.etree.SubElement(self.stand_off,
-                                          self.TEI + "listOrg",
-                                          nsmap=self.NSMAP)
+                                        self.TEI + "listOrg",
+                                        nsmap=self.NSMAP)
         for name in self.orgNames:
             org_id = f"{self.iv_id}_org_{self.orgNames.index(name)}"
             org = lxml.etree.SubElement(listOrg, self.TEI + "org",
-                                          nsmap=self.NSMAP)
+                                        nsmap=self.NSMAP)
             org.set(self.XML + "id", org_id)
             pname = lxml.etree.SubElement(org, self.TEI + "orgName",
                                           nsmap=self.NSMAP)

@@ -2,8 +2,7 @@
 
 import argparse
 import sys
-import csv
-from ddhi_encoder.modifiers.modifiers import Place
+from ddhi_encoder.modifiers.modifiers import Org
 from ddhi_encoder.interview import Interview
 from ddhi_encoder import __version__
 
@@ -14,7 +13,7 @@ __license__ = "mit"
 
 def parse_args(args):
     parser = argparse.ArgumentParser(
-        description="export standoff places to tsv")
+        description="updates orgs in standoff")
     parser.add_argument(
         "--version",
         action="version",
@@ -40,7 +39,7 @@ def main(args):
     args = parse_args(args)
     interview = Interview()
     interview.read(args.tei)
-    modifier = Place(interview)
+    modifier = Org(interview)
     modifier.data = args.tsv
     modifier.modify()
     interview.write(args.outfile)

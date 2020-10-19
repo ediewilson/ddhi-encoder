@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/ddhi.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="dvp_test1">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>test transcript</title>
+         </titleStmt>
+         <publicationStmt>
+            <authority>
+               <orgName ref="#">Dartmouth Digital History Initiative</orgName>
+            </authority>
+            <date>
+          <!--  Date of publication, e.g. for citation purposes  -->
+        </date>
+            <idno type="DDHI">dvp_test1</idno>
+         </publicationStmt>
+         <sourceDesc>
+            <recordingStmt>
+               <recording xml:id="primary_recording" type="audio" dur-iso="9">
+            <!-- https://www.digi.com/resources/documentation/digidocs/90001437-13/reference/r_iso_8601_duration_format.htm -->
+                  <media url="" mimeType="MIMEaudio/wav"/>
+               </recording>
+            </recordingStmt>
+            <bibl xml:id="primary_transcription">
+               <respStmt>
+                  <persName ref="#">Mimi Eisenberg</persName>
+                  <orgName ref="#">Wordcraft</orgName>
+                  <resp ref="http://id.loc.gov/vocabulary/relators/trc.html">Transcriber</resp>
+               </respStmt>
+               <ref target="path_to_file">Primary transcription</ref>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The Dartmouth Vietnam Project</p>
+         </projectDesc>
+         <appInfo>
+            <application ident="DDHIEncoder" version="1.0.5">
+               <desc>Conversion from Word docx to TEI xml.</desc>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en-us">English</language>
+         </langUsage>
+         <particDesc>
+            <person xml:id="LOVELY"/>
+            <person xml:id="BURACK"/>
+         </particDesc>
+         <settingDesc>
+            <setting>
+               <date when-iso="2016-02-10"/>
+               <locale/>
+            </setting>
+         </settingDesc>
+      </profileDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <u who="BURACK">Hi. This is <persName ref="#dvp_013_person1">Emily Burack</persName>. I am sitting here in <placeName ref="#dvp_013_place1">Rauner [Special Collections] Library</placeName> on <date when="2016-02-10">Wednesday, February 10th, 2016</date>, and 3:02 p.m. in the afternoon. I am speaking with <persName ref="#dvp_013_person2">Beirne [pronounced BUR-nee] Lovely</persName>, who is just south of <placeName ref="#dvp_013_place2">Boston</placeName> right now. And we’ll begin.
+
+Good afternoon. How are you?</u>
+         <u who="LOVELY">I’m fine. And it’s BURN, and not BUR-nee.</u>
+         <u who="BURACK">Oh, excuse me. </u>
+      </body>
+  </text>
+   <standOff>
+     <listPlace>
+       <place xml:id="place1">
+            <placeName>Hanover, New Hampshire</placeName>
+            <location>
+               <geo>43.702222 -72.206111</geo>
+            </location>
+            <desc>The project may wish to provide descriptions of
+            entities, if none are available elsewhere; but you will
+            gain great extensibility if you can link these entities to
+            global authority databases, like WikiData. The idno
+            element (with type WD, for WikiData) provides that link.</desc>
+            <idno type="WD">Q131908</idno>
+         </place>
+         <place xml:id="dvp_013_place2">
+            <placeName>Boston</placeName>
+	   <location>
+	     <geo>51.969604 -2.893146</geo>
+	   </location>
+         </place>
+      </listPlace>
+      <listPerson>
+         <person xml:id="dvp_013_person1">
+            <persName>Emily Burack</persName>
+         </person>
+         <person xml:id="dvp_013_person2">
+            <persName>Beirne [pronounced BUR-nee] Lovely</persName>
+         </person>
+      </listPerson>
+   </standOff>
+</TEI>
