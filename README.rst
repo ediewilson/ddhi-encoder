@@ -1,28 +1,13 @@
 A collection of command-line utilities to assist in the creation of
-TEI-encoded oral history interviews. Part of the Dartmouth Digital
+TEI-encoded oral history interviews for the Dartmouth Digital
 History Initiative.
 
 .. _ddhi-encoder-1:
 
-DDHI Encoder
+Installation
 ============
 
-The ddhi-encoder package is being developed to assist encoders in the
-DDHI project in encoding oral history interview transcripts in TEI. At
-present, it contains three command-line utilities:
-
-#. ``ddhi_convert``: convert a Dartmouth DVP transcript from docx to
-   tei.xml.
-#. ``ddhi_tag``: perform named-entity tagging on a DDHI TEI
-   transcription.
-#. ``ddhi_mentioned_places``: extract places from stand-off markup
-   for processing with OpenRefine
-#. ``ddhi_update_places``: update places in stand-off markup
-
-Installation
-------------
-
-You can use pip to install this package:
+Use pip to install this package:
 
 .. code:: bash
 
@@ -39,10 +24,11 @@ See `the Spacy documentation <https://spacy.io/models>`__ for more
 information.
 
 Use
----
+===
+
 
 Use ``ddhi_convert`` to transform a DOCX-encoded transcription into a
-simply structured TEI document:
+simply structured TEI document.
 
 .. code:: bash
 
@@ -57,8 +43,9 @@ transcription:
 
 Encoders are then expected to edit the text of the interview,
 correcting automatically generated named-entity tags and adding new
-ones.  when this phase of editing is complete, use
-``ddhi_generate_standoff`` to  create a ``<standOff>`` element in the
+ones.
+
+Use ``ddhi_generate_standoff`` to  create a ``<standOff>`` element in the
 interview and link the entities to names in the text.
 
 Use ``ddhi_mentioned_places`` to extract the places in a TEI file's
