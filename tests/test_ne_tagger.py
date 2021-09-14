@@ -78,7 +78,7 @@ def test_tag():
     utterance.text = r"So this is Riley Carbone, and I'm at Rauner [Special Collections] Library."
     tagger = DDHINETagger(nlp, utterance)
     tagger.tag()
-    assert etree.tostring(tagger._root) == b'<u who="CARBONE">So this is <persName>Riley Carbone</persName>, and I\'m at <persName>Rauner</persName> [Special Collections] Library.</u>'
+    assert etree.tostring(tagger._root) == b'<u who="CARBONE">So this is <persName>Riley Carbone</persName>, and I\'m at <orgName>Rauner [Special Collections] Library</orgName>.</u>'
 
 def test_tag_at_end_of_sentence():
     utterance = etree.Element("u", who="SOLOMON")
