@@ -73,6 +73,10 @@ class Interview:
         return self.tei_doc.xpath("//tei:body//tei:name[@type='event']",
                                   namespaces=self.namespaces)
 
+    def dates(self):
+        return self.tei_doc.xpath("//tei:body//tei:date",
+                                  namespaces=self.namespaces)
+
     def standOff(self):
         return self.tei_doc.xpath("//tei:standOff",
                                   namespaces=self.namespaces)
