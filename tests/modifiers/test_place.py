@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from ddhi_encoder.modifiers.modifiers import Place
-from ddhi_encoder.interview import Interview
+from ttu_encoder.modifiers.modifiers import Place
+from ttu_encoder.interview import Interview
 import os
 
 

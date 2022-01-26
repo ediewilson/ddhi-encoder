@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # interview.py
 from lxml import etree
-from ddhi_encoder.ne_tagger import DDHINETagger
+from ttu_encoder.ne_tagger import DDHINETagger
 
 
 class Interview:

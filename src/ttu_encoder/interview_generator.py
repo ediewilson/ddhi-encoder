@@ -2,7 +2,7 @@
 # interview_generator.py
 import os
 from lxml import etree
-from ddhi_encoder.word_parser import WordParserFactory
+from ttu_encoder.word_parser import WordParserFactory
 import logging
 
 class InterviewGenerator:

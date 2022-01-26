@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from ddhi_encoder.interview_generator import InterviewGenerator,InterviewGeneratorFactory
+from ttu_encoder.interview_generator import InterviewGenerator,InterviewGeneratorFactory
 
 
 __author__ = "Clifford Wulfman"

@@ -4,7 +4,7 @@ import pytest
 import spacy
 import re
 from lxml import etree
-from ddhi_encoder.utterance import Utterance
+from ttu_encoder.utterance import Utterance
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"

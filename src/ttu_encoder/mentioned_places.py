@@ -3,8 +3,8 @@
 import argparse
 import sys
 import csv
-from ddhi_encoder.ne_extractor import NeExtractor
-from ddhi_encoder import __version__
+from ttu_encoder.ne_extractor import NeExtractor
+from ttu_encoder import __version__
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
@@ -26,7 +26,7 @@ def parse_args(args):
     parser.add_argument(
         "--version",
         action="version",
-        version="ddhi-encoder {ver}".format(ver=__version__))
+        version="ttu-encoder {ver}".format(ver=__version__))
 
     parser.add_argument('file', help="the TEI document")
 

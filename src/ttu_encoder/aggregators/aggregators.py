@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # aggregators.py
-from ddhi_encoder.entities.entities import Place
+from ttu_encoder.entities.entities import Place
 
 
 class Aggregator:

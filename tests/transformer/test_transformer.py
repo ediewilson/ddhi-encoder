@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-#from ddhi_encoder.transformer import Transformer
-from ddhi_encoder.transformer.transformer import Transformer
+#from ttu_encoder.transformer import Transformer
+from ttu_encoder.transformer.transformer import Transformer
 from lxml import etree
 
 

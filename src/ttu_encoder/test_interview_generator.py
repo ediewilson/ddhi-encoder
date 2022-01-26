@@ -3,9 +3,9 @@
 import pytest
 import re
 import os
-from ddhi_encoder.interview import InterviewGenerator, InterviewGeneratorFactory
-from ddhi_encoder.word_parser import WordParserFactory
-from ddhi_encoder.utterance import Utterance
+from ttu_encoder.interview import InterviewGenerator, InterviewGeneratorFactory
+from ttu_encoder.word_parser import WordParserFactory
+from ttu_encoder.utterance import Utterance
 import spacy
 
 __author__ = "Clifford Wulfman"
@@ -17,7 +17,7 @@ def test_interview():
     factory = WordParserFactory()
     testdoc = os.path.join(os.path.dirname(__file__), 'short.docx')
     template = os.path.join(os.path.dirname(__file__), 'teitemplate.xml')
-    parser = factory.parser_for("DDHI")
+    parser = factory.parser_for("VNCA")
     nlp = spacy.load("en_core_web_sm")
 
     interview = InterviewGenerator(parser, testdoc, template, nlp)
@@ -29,7 +29,7 @@ def test_interview():
 def test_interview_factory():
     factory = InterviewGeneratorFactory()
     testdoc = os.path.join(os.path.dirname(__file__), 'short.docx')
-    interview = factory.interview_for("DDHI", testdoc)
+    interview = factory.interview_for("VNCA", testdoc)
     assert interview.utterances[1].speaker == ('TAVELA')
     assert re.search('Washington', interview.utterances[1].speech)
     assert re.search('sourceDesc', interview.xml())

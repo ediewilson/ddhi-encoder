@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from ddhi_encoder.modifiers.modifiers import Modifier
+from ttu_encoder.modifiers.modifiers import Modifier
 
 
 def test_simple():

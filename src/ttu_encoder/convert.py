@@ -8,7 +8,7 @@ console script. To run this script uncomment the following lines in the
 [options.entry_points] section in setup.cfg:
 
     console_scripts =
-         fibonacci = ddhi_encoder.skeleton:run
+         fibonacci = ttu_encoder.skeleton:run
 
 Then run `python setup.py install` which will install the command `fibonacci`
 inside your current environment.
@@ -21,8 +21,8 @@ Note: This skeleton file can be safely removed if not needed!
 import argparse
 import sys
 import logging
-from ddhi_encoder.interview_generator import InterviewGeneratorFactory
-from ddhi_encoder import __version__
+from ttu_encoder.interview_generator import InterviewGeneratorFactory
+from ttu_encoder import __version__
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
@@ -44,7 +44,7 @@ def parse_args(args):
     parser.add_argument(
         "--version",
         action="version",
-        version="ddhi-encoder {ver}".format(ver=__version__))
+        version="ttu-encoder {ver}".format(ver=__version__))
 
     parser.add_argument('file', help="the Word docx file to process")
 

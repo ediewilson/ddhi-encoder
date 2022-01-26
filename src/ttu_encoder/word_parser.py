@@ -4,7 +4,7 @@
 import re
 from abc import ABC, abstractmethod
 from docx2python import docx2python
-from ddhi_encoder.utterance import Utterance
+from ttu_encoder.utterance import Utterance
 
 
 class WordParser(ABC):

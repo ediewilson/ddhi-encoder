@@ -2,7 +2,7 @@
 
 from lxml import etree
 import spacy
-from ddhi_encoder.ne_tagger import NamedEntity, DDHINETagger
+from ttu_encoder.ne_tagger import NamedEntity, DDHINETagger
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from ddhi_encoder.modifiers.modifiers import Standoff
-from ddhi_encoder.interview import Interview
+from ttu_encoder.modifiers.modifiers import Standoff
+from ttu_encoder.interview import Interview
 from lxml import etree
 import os
 

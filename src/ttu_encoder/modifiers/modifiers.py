@@ -64,11 +64,11 @@ class Place(Modifier):
                 idno.set("type", "WD")
                 idno.text = row['QID']
 
-            if ("dvp_id" in row.keys() and row['dvp_id']):
+            if ("ttu_id" in row.keys() and row['ttu_id']):
                 idno = lxml.etree.SubElement(place, self.TEI + "idno",
                                              nsmap=self.NSMAP)
                 idno.set("type", "project")
-                idno.text = row['dvp_id']
+                idno.text = row['ttu_id']
 
 
 class Person(Modifier):
@@ -92,11 +92,11 @@ class Person(Modifier):
                 idno.set("type", "WD")
                 idno.text = row['QID']
 
-            if ("dvp_id" in row.keys() and row['dvp_id']):
+            if ("ttu_id" in row.keys() and row['ttu_id']):
                 idno = lxml.etree.SubElement(person, self.TEI + "idno",
                                              nsmap=self.NSMAP)
                 idno.set("type", "project")
-                idno.text = row['dvp_id']
+                idno.text = row['ttu_id']
 
 
 class Org(Modifier):
@@ -120,11 +120,11 @@ class Org(Modifier):
                 idno.set("type", "WD")
                 idno.text = row['QID']
 
-            if ("dvp_id" in row.keys() and row['dvp_id']):
+            if ("ttu_id" in row.keys() and row['ttu_id']):
                 idno = lxml.etree.SubElement(org, self.TEI + "idno",
                                              nsmap=self.NSMAP)
                 idno.set("type", "project")
-                idno.text = row['dvp_id']
+                idno.text = row['ttu_id']
 
 
 class Event(Modifier):
@@ -158,11 +158,11 @@ class Event(Modifier):
                 idno.set("type", "WD")
                 idno.text = row['QID']
 
-            if ("dvp_id" in row.keys() and row['dvp_id']):
+            if ("ttu_id" in row.keys() and row['ttu_id']):
                 idno = lxml.etree.SubElement(event, self.TEI + "idno",
                                              nsmap=self.NSMAP)
                 idno.set("type", "project")
-                idno.text = row['dvp_id']
+                idno.text = row['ttu_id']
 
 
 class Standoff(Modifier):
@@ -170,6 +170,7 @@ class Standoff(Modifier):
     @property
     def iv_id(self):
         expr = f"//tei:fileDesc//tei:idno[@type='DDHI']"
+        print(self.target)
         return self.target.tei_doc.xpath(expr,
                                          namespaces=self.namespaces)[0].text
 

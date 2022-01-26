@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from lxml import etree
-from ddhi_encoder.entities.entities import Entity,Place
+from ttu_encoder.entities.entities import Entity,Place
 
 def test_simple():
     entity = etree.ElementTree(

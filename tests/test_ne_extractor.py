@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from ddhi_encoder.ne_extractor import NeExtractor
+from ttu_encoder.ne_extractor import NeExtractor
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"

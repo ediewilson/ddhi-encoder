@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # test_aggregators.py
 
-from ddhi_encoder.aggregators.aggregators import Aggregator
-from ddhi_encoder.interview import Interview
+from ttu_encoder.aggregators.aggregators import Aggregator
+from ttu_encoder.interview import Interview
 import os
 
 

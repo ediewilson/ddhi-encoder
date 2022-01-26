@@ -1,7 +1,7 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-source = ddhi_encoder
+source = ttu_encoder
 # omit = bad_file.py
 
 [paths]

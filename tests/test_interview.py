@@ -2,7 +2,7 @@
 
 import os
 from lxml import etree
-from ddhi_encoder.interview import Interview
+from ttu_encoder.interview import Interview
 import spacy
 
 

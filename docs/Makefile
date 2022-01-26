@@ -8,8 +8,8 @@ PAPER         =
 BUILDDIR      = ../build/sphinx/
 AUTODOCDIR    = api
 AUTODOCBUILD  = sphinx-apidoc
-PROJECT       = ddhi-encoder
-MODULEDIR     = ../src/ddhi_encoder
+PROJECT       = ttu-encoder
+MODULEDIR     = ../src/ttu_encoder
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $?), 1)

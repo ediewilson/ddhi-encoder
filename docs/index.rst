@@ -1,8 +1,8 @@
 ============
-ddhi-encoder
+ttu-encoder
 ============
 
-This is the documentation of **ddhi-encoder**.
+This is the documentation of **ttu-encoder**.
 
 .. note::
 

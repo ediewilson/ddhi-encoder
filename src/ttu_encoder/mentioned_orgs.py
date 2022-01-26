@@ -3,25 +3,32 @@
 import argparse
 import sys
 import csv
-from ddhi_encoder.modifiers.modifiers import Place
-from ddhi_encoder.interview import Interview
-from ddhi_encoder import __version__
+from ttu_encoder.ne_extractor import NeExtractor
+from ttu_encoder import __version__
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
 __license__ = "mit"
 
 
+def to_tsv(list, stream=sys.stdout):
+    writer = csv.DictWriter(stream,
+                            fieldnames=[k for k in list[0].keys()],
+                            delimiter="\t")
+    writer.writeheader()
+    for row in list:
+        writer.writerow(row)
+
+
 def parse_args(args):
     parser = argparse.ArgumentParser(
-        description="export standoff places to tsv")
+        description="export standoff orgs to tsv")
     parser.add_argument(
         "--version",
         action="version",
-        version="ddhi-encoder {ver}".format(ver=__version__))
+        version="ttu-encoder {ver}".format(ver=__version__))
 
-    parser.add_argument('tei', help="the TEI document")
-    parser.add_argument('tsv', help="the tsv update document")
+    parser.add_argument('file', help="the TEI document")
 
     parser.add_argument('-o', '--outfile',
                         dest="outfile",
@@ -38,12 +45,9 @@ def main(args):
       args ([str]): command line parameter list
     """
     args = parse_args(args)
-    interview = Interview()
-    interview.read(args.tei)
-    modifier = Place(interview)
-    modifier.data = args.tsv
-    modifier.modify()
-    interview.write(args.outfile)
+    extractor = NeExtractor(args.file)
+    org_names_list = extractor.org_names_list()
+    to_tsv(org_names_list)
 
 
 def run():

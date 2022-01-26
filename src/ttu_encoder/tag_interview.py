@@ -4,7 +4,7 @@ import os
 import argparse
 import logging
 import spacy
-from ddhi_encoder.interview import Interview
+from ttu_encoder.interview import Interview
 
 
 __author__ = "Clifford Wulfman"

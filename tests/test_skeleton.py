@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from ddhi_encoder.skeleton import fib
+from ttu_encoder.skeleton import fib
 
 __author__ = "Clifford Wulfman"
 __copyright__ = "Clifford Wulfman"
